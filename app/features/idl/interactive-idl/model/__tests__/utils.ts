@@ -4,10 +4,11 @@ import { useFormatAnchorIdl, useFormatCodamaIdl } from '@entities/idl';
 import { getIdlSpecType } from '@entities/idl/model/converters/convert-legacy-idl';
 import { renderHook } from '@testing-library/react';
 import { camelCase } from 'change-case';
+import type { RootNode } from 'codama';
 
 export function formatIdlForTest(idl: unknown): FormattedIdl | null {
     if (getIdlSpecType(idl) === 'codama') {
-        const { result } = renderHook(() => useFormatCodamaIdl(idl));
+        const { result } = renderHook(() => useFormatCodamaIdl(idl as RootNode));
         return result.current;
     }
     const { result } = renderHook(() => useFormatAnchorIdl(idl as Idl));
